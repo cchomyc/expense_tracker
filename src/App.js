@@ -12,10 +12,6 @@ function App() {
     expenseYear.push(new Month(i));
   }
 
-  // Insert dummy data.
-  expenseYear[6].addExpense(new Expense(15, "ABC Supermarket", 127.64));
-  expenseYear[6].addExpense(new Expense(13, "DEF Supermarket", 106.01));
-
   // Data-handling functions.
   const getMonth = monthNum => {
     // Return a copy of the requested Month.
@@ -26,6 +22,7 @@ function App() {
     });
     return monthCopy;
   };
+  const addExpenseToMonth = (monthNum, dayOfMonth, merchant, amount) => expenseYear[monthNum].addExpense(new Expense(dayOfMonth, merchant, amount));
 
   return (
     <div className="App">
@@ -37,7 +34,7 @@ function App() {
       <div className="View">
         <Routes>
           <Route path="/" element={<Overview />} />
-          <Route path="/month" element={<MonthView monthNum={6} getMonth={getMonth} />} />
+          <Route path="/month" element={<MonthView monthNum={6} getMonth={getMonth} addExpenseToMonth={addExpenseToMonth} />} />
         </Routes>
       </div>
     </div>
