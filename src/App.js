@@ -12,9 +12,13 @@ function App() {
     expenseYear.push(new Month(i));
   }
 
-  // Data-handling functions.
+  // Data-handling functions:
+
+  // Returns an array containing a [monthStr, total] pair for each Month.
+  const getTotals = () => expenseYear.map(month => [month.getMonthStr(), month.total]);
+
+  // Returns a copy of the Month corresponding to monthNum.
   const getMonth = monthNum => {
-    // Return a copy of the requested Month.
     const monthOrig = expenseYear[monthNum];
     let monthCopy = new Month(monthNum);
     monthOrig.expenses.forEach(expense => {
@@ -22,7 +26,11 @@ function App() {
     });
     return monthCopy;
   };
+
+  // Creates a new Expense with the requested details and adds it to the Month corresponding to monthNum.
   const addExpenseToMonth = (monthNum, dayOfMonth, merchant, amount) => expenseYear[monthNum].addExpense(new Expense(dayOfMonth, merchant, amount));
+
+  // End of data-handling functions.
 
   return (
     <div className="App">
@@ -33,8 +41,8 @@ function App() {
       </nav>
       <div className="View">
         <Routes>
-          <Route path="/" element={<Overview />} />
-          <Route path="/month" element={<MonthView monthNum={6} getMonth={getMonth} addExpenseToMonth={addExpenseToMonth} />} />
+          <Route path="/" element={<Overview getTotals={getTotals} />} />
+          <Route path="/month" element={<MonthView monthNum={(new Date()).getMonth()} getMonth={getMonth} addExpenseToMonth={addExpenseToMonth} />} />
         </Routes>
       </div>
     </div>

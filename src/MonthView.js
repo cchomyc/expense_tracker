@@ -17,7 +17,7 @@ function MonthView({ monthNum, getMonth, addExpenseToMonth }) {
 
   return (
     <div>
-      <h2><span>{month.getMonthStr()} 2025</span><span className="MonthViewTotal">Total: {month.total.toFixed(2)}</span></h2>
+      <h2><span>{month.getMonthStr()} 2025</span><span className="PositionRight">Total: {month.total.toFixed(2)}</span></h2>
       <table>
         <thead><tr><th>Date</th><th>Merchant</th><th className="AlignRight">Amount</th><th className="AlignRight">Options</th></tr></thead>
         <tbody>

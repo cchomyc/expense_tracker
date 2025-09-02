@@ -1,10 +1,16 @@
-function Overview() {
+function Overview({ getTotals }) {
+  const totals = getTotals();
+
   return (
     <div>
-      <h2>Overview</h2>
+      <h2><span>Overview</span><span className="PositionRight">Grand Total: {totals.reduce((sum, [, monthTotal]) => sum + monthTotal, 0).toFixed(2)}</span></h2>
       <table>
-        <tr><th>Month</th><th>Total</th></tr>
-        <tr><td>July 2025</td><td>127.64</td></tr>
+        <thead><tr><th>Month</th><th className="AlignRight">Total</th></tr></thead>
+        <tbody>
+          {totals.map(([monthStr, monthTotal], index) => (
+            <tr key={index}><td>{monthStr} 2025</td><td className="AlignRight">{monthTotal.toFixed(2)}</td></tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );
