@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Overview({ getTotals }) {
   const totals = getTotals();
 
@@ -8,7 +10,10 @@ function Overview({ getTotals }) {
         <thead><tr><th>Month</th><th className="AlignRight">Total</th></tr></thead>
         <tbody>
           {totals.map(([monthStr, monthTotal], index) => (
-            <tr key={index}><td>{monthStr} 2025</td><td className="AlignRight">{monthTotal.toFixed(2)}</td></tr>
+            <tr key={index}>
+              <td><Link to={{pathname:"/month", search:"?month_num="+index}}>{monthStr} 2025</Link></td>
+              <td className="AlignRight">{monthTotal.toFixed(2)}</td>
+            </tr>
           ))}
         </tbody>
       </table>

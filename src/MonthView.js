@@ -1,10 +1,23 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-function MonthView({ monthNum, getMonth, addExpenseToMonth }) {
+function MonthView({ getMonth, addExpenseToMonth }) {
   const dayOfMonthInput = useRef(null);
   const merchantInput = useRef(null);
   const amountInput = useRef(null);
+
+  // Fetch Month requested in URL query or default to current Month (according to system time).
+  const queryParams = new URLSearchParams(useLocation().search);
+  let monthNum = queryParams.get("month_num");
+  if (monthNum === null || monthNum === "") {
+    monthNum = (new Date()).getMonth();
+  } else {
+    monthNum = Number(monthNum);
+  }
   let [ month, setMonth ] = useState(getMonth(monthNum));
+
+  // Ensure that this component updates when a different Month is requested.
+  useEffect(() => setMonth(getMonth(monthNum)), [monthNum]);
 
   // Button click-handlers.
   const addExpenseClicked = () => {

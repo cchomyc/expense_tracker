@@ -36,13 +36,13 @@ function App() {
     <div className="App">
       <h1>Expense Tracker</h1>
       <nav>
-        <Link to="/">Overview</Link>
-        <Link to="/month">This Month</Link>
+        <Link to="/" className="NavItem">Overview</Link>
+        <Link to="/month" className="NavItem">This Month</Link>
       </nav>
       <div className="View">
         <Routes>
           <Route path="/" element={<Overview getTotals={getTotals} />} />
-          <Route path="/month" element={<MonthView monthNum={(new Date()).getMonth()} getMonth={getMonth} addExpenseToMonth={addExpenseToMonth} />} />
+          <Route path="/month" element={<MonthView getMonth={getMonth} addExpenseToMonth={addExpenseToMonth} />} />
         </Routes>
       </div>
     </div>
