@@ -22,13 +22,16 @@ function App() {
     const monthOrig = expenseYear[monthNum];
     let monthCopy = new Month(monthNum);
     monthOrig.expenses.forEach(expense => {
-      monthCopy.addExpense(new Expense(expense.dayOfMonth, expense.merchant, expense.amount));
+      monthCopy.addExpense(new Expense(expense));
     });
     return monthCopy;
   };
 
   // Creates a new Expense with the requested details and adds it to the Month corresponding to monthNum.
   const addExpenseToMonth = (monthNum, dayOfMonth, merchant, amount) => expenseYear[monthNum].addExpense(new Expense(dayOfMonth, merchant, amount));
+
+  // Deletes the Expense with id expenseId from the Month corresponding to monthNum.
+  const deleteExpenseFromMonth = (monthNum, expenseId) => expenseYear[monthNum].deleteExpense(expenseId);
 
   // End of data-handling functions.
 
@@ -42,7 +45,7 @@ function App() {
       <div className="View">
         <Routes>
           <Route path="/" element={<Overview getTotals={getTotals} />} />
-          <Route path="/month" element={<MonthView getMonth={getMonth} addExpenseToMonth={addExpenseToMonth} />} />
+          <Route path="/month" element={<MonthView getMonth={getMonth} addExpenseToMonth={addExpenseToMonth} deleteExpenseFromMonth={deleteExpenseFromMonth} />} />
         </Routes>
       </div>
     </div>

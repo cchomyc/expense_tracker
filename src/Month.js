@@ -33,6 +33,23 @@ class Month {
       this.total += expense.amount;
     }
   }
+
+  deleteExpense(expenseId) {
+    const i = this.expenses.findIndex(expense => expense.id === expenseId);
+    if (i === -1) { // Not found.
+      return;
+    }
+    this.total -= this.expenses[i].amount;
+    if (i === 0) {
+      this.expenses.shift();
+    } else if (i === this.expenses.length - 1) {
+      this.expenses.pop();
+    } else {
+      const laterExpenses = this.expenses.splice(i + 1);
+      this.expenses.pop();
+      this.expenses = this.expenses.concat(laterExpenses);
+    }
+  }
 }
 
 export default Month;

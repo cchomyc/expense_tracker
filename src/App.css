@@ -72,6 +72,7 @@ input {
 }
 
 button {
+  margin-left: 5px;
   background-color: green;
   border: 0;
   border-radius: 5px;
@@ -80,4 +81,11 @@ button {
 }
 button:active {
   background-color: darkgreen;
+}
+
+button.DangerousButton {
+  background-color: red;
+}
+button.DangerousButton:active {
+  background-color: darkred;
 }

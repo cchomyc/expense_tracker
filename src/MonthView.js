@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-function MonthView({ getMonth, addExpenseToMonth }) {
+function MonthView({ getMonth, addExpenseToMonth, deleteExpenseFromMonth }) {
   const dayOfMonthInput = useRef(null);
   const merchantInput = useRef(null);
   const amountInput = useRef(null);
@@ -27,6 +27,10 @@ function MonthView({ getMonth, addExpenseToMonth }) {
     amountInput.current.value = null;
     setMonth(getMonth(monthNum));
   };
+  const deleteExpenseClicked = expenseId => {
+    deleteExpenseFromMonth(monthNum, expenseId);
+    setMonth(getMonth(monthNum));
+  };
 
   return (
     <div>
@@ -35,12 +39,14 @@ function MonthView({ getMonth, addExpenseToMonth }) {
         <thead><tr><th>Date</th><th>Merchant</th><th className="AlignRight">Amount</th><th className="AlignRight">Options</th></tr></thead>
         <tbody>
           {month.expenses.map(expense => (
-            // TODO: Add key={unique_id} in each generated <tr>.
-            <tr>
+            <tr key={expense.id}>
               <td>{month.getMonthAbbrev()} {expense.dayOfMonth}</td>
               <td>{expense.merchant}</td>
               <td className="AlignRight">{expense.amount.toFixed(2)}</td>
-              <td className="AlignRight">Edit/Delete</td>
+              <td className="AlignRight">
+                <button onClick={() => alert("Coming soon!")}>Edit</button>
+                <button className="DangerousButton" onClick={() => deleteExpenseClicked(expense.id)}>Delete</button>
+              </td>
             </tr>
           ))}
           <tr>
